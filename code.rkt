@@ -1,0 +1,13 @@
+(define countA (lambda( L)
+		 (cAH () 0 L)
+		 ))
+(define cAH (lambda (num obj)
+	      (cond
+	       ((not(null? obj))
+		(cond ((pair? (car obj))
+		       (define L ((-(cAH 0 (car obj)) 1)))
+		       )
+		      (else (define L 'num))
+		      )
+		(cAH (+ 1 L) (cdr obj)))
+	       (else num))))
