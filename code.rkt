@@ -28,18 +28,32 @@
 ; what up fam
 
 ; what up fam
-;(countA '(a b c (a (b c (a a a a a a b ("bc"))))))
 
 (define level (lambda( L)
-		 (lEH L ())
-		 ))
+		(lEH L ())
+		))
 (define lEH (lambda (orig add)
-	(cond ((null? obj)
-	      add      
-	)
-		(else
-			(cond ((
-			)))
-		)
-	)
-))
+	      (define next (prepNext '(car (list orig))))
+	      (cond ((null? next)
+		     add      
+		     )
+		    (else
+		     (define rest (cdr orig))
+		     (cond ((pair? next)
+			    (lEH rest (append add next))
+			    )
+			   (else
+			   (lEH rest (append add (list next))) 
+			    ))
+		     )
+		    )
+	      ))
+
+(define prepNext (lambda(l)
+                   (cond ((null? l) l)
+                    (else
+                   (define lp (list 'l))
+                    (if (= (countA lp) 1)
+                        (if (pair? l) (prepNext l) l)
+                        l)))))
+(level '(a b c))

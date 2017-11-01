@@ -33,14 +33,14 @@
 		(lEH L ())
 		))
 (define lEH (lambda (orig add)
-	      (define next (car orig))
+	      (define next (prepNext '(car (list orig))))
 	      (cond ((null? next)
 		     add      
 		     )
 		    (else
 		     (define rest (cdr orig))
 		     (cond ((pair? next)
-			    (leh rest (append add next))
+			    (lEH rest (append add next))
 			    )
 			   (else
 			   (lEH rest (append add (list next))) 
@@ -48,4 +48,12 @@
 		     )
 		    )
 	      ))
-(level '(a (b c)))
+
+(define prepNext (lambda(l)
+                   (cond ((null? l) l)
+                    (else
+                   (define lp (list 'l))
+                    (if (= (countA lp) 1)
+                        (if (pair? l) (prepNext l) l)
+                        l)))))
+(level '(a b c))
